@@ -22,3 +22,10 @@ provided by the backend API.
 - Role-based access control
 - Display wishlist and item data
 - Handle user input and validation
+
+## Fulfillment and Verification Considerations
+
+The frontend design accounts for delayed fulfillment verification and
+uncertainty by supporting quantity tracking, pending verification states,
+and confidence indicators. These representations allow users to understand
+fulfillment progress without assuming immediate or absolute verification.
