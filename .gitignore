@@ -17,3 +17,6 @@ coverage/
 # OS files
 .DS_Store
 Thumbs.db
+
+# DB Config
+server/db/config/db.config.js
