@@ -7,6 +7,7 @@ Project peach_gardenia {
 }
 
 Table nouns {
+  organisation_addresses _
   organisation _
   case_worker _
   buyer _
@@ -19,20 +20,22 @@ Table verbs {
   create "case_worker can create wishlist"
   add "case_worker can add item to wishlist"
   remove "case_worker can remove item from wishlist"
-  view_for_carer "Allow case_worker to view associated wishlist with read/write privileges"
-  view_for_helper "Helper can view all wishlists (readonly)."
+  view_for_case_worker "Allow case_worker to view associated wishlist with read/write privileges"
+  view_for_buyer "Buyer can view all wishlists (readonly)."
 }
 
 Table organisation {
   id integer [pk, increment]
+  address foreign_key
   name varchar
-  // find address through organisation_address join
   email varchar
   tel varchar
 }
 
 Table organisation_address {
-  id integer [pk, increment]
+  id integer [increment]
+  org_name varchar
+  type varchar(2) // s for shipping, b for billing sb for shipping and billing
   organisation foreign_key
   name varchar
   street_num integer
@@ -41,8 +44,9 @@ Table organisation_address {
   state_county varchar
   zip_post_code varchar
   country varchar
-  is_shipping bool
-  is_billing bool
+  Indexes {
+    (id, org_name, type)
+  }
 }
 
 Table case_worker {
@@ -62,21 +66,29 @@ Table wish_list {
 
 Table wish_item {
   id integer [pk, increment]
-  wish_list foreign_key // links to foster_child which links to case_worker where we can 
-  theme varchar // default_undefined. could be christmas presents or school resources etc
+  wish_list foreign_key
+  status foreign_key
   product_name varchar
-  product_description varchar
-  fulfilled bool
+  image_link text
+  needs tbc
+  has tbc
+  item_url text
+  item_priority tbc
+  created_at datetime
+  updated_at datetime
 }
 
 Table item_status {
-  id integer [pk, increment]
+  id integer
   status varchar
-  wish_item foreign_key
+
+  Indexes {
+    (id, status) [unique]
+  }
 }
 
-Ref organisation_address: organisation_address.organisation > organisation.id
+Ref organisation_address: organisation.address - organisation_address.(id, organisation, type)
 Ref organisation: case_worker.organisation > organisation.id
 Ref case_worker: wish_list.case_worker > case_worker.id
 Ref wish_list: wish_item.wish_list > wish_list.id
-Ref wish_item: item_status.wish_item - wish_item.id
+Ref wish_item: wish_item.status - item_status.(id, status)
