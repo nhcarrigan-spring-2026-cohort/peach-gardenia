@@ -6,6 +6,7 @@ yarn-error.log
 
 # Environment variables
 .env
+.venv
 
 # Cypress artifacts
 cypress/videos/
