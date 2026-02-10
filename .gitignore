@@ -1,5 +1,5 @@
 # Node
-node_modules/
+node_modules
 npm-debug.log
 yarn-debug.log
 yarn-error.log
@@ -18,3 +18,6 @@ coverage/
 # OS files
 .DS_Store
 Thumbs.db
+
+# DB Config
+server/db/config/db.config.js
