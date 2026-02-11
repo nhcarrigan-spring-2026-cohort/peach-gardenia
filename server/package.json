@@ -10,7 +10,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "cors": "^2.8.6",
     "express": "^5.2.1",
+    "nodemailer": "^8.0.1",
     "nodemon": "^3.1.11",
     "sequelize": "^6.37.7",
     "sqlite3": "^5.1.7"
