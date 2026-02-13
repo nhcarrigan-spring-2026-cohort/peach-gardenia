@@ -72,44 +72,43 @@ def get_wishlist_items(
         img = wishlist_item.find("img")
         image_url = img.get("src") if img else None
 
+        ## Other metadata
+        def find_span_id(prefix):
+            return wishlist_item.find(
+                "span", 
+                id=lambda text: text is not None and text.startswith(prefix)
+            )
+
+        item_needed = find_span_id("itemRequested_")
+        item_received = find_span_id("itemPurchased_")
+        item_priority = find_span_id("itemPriorityLabel_")
+
+        item_add_date = None
+        item_add_span = find_span_id("itemAddedDate_")
+        if item_add_span:
+            raw_text = item_add_span.get_text(strip=True)
+            item_add_date = raw_text[11:]
+
+        item_last_purchase_date = None
+        item_last_purchase_span = find_span_id("itemPurchasedDate_")
+        if item_last_purchase_span:
+            raw_text = item_last_purchase_span.get_text(strip=True)
+            item_last_purchase_date = raw_text[15:]
+
+        # Add wishlist item object to list/array
         if item_name:
             data = {
                 "item_name": item_name,
                 "item_url": item_url,
                 "image_url": image_url,
+                "item_needed": item_needed.get_text(strip=True) if item_needed else None,
+                "item_received": item_received.get_text(strip=True) if item_received else None,
+                "item_priority": item_priority.get_text(strip=True) if item_priority else None,
+                "item_add_date": item_add_date,
+                "item_last_purchase_date": item_last_purchase_date,
             }
         
             res.append(data)
-
-
-        # if item and item.get("title"):
-        #     item_name = item.get("title")
-        #     item_url = f"https://www.amazon.com/{item.get("href")}"
-        #     image_url = wishlist_item.find("img").get("src")
-
-        #     item_needed = wishlist_item.find("span", id=lambda text: text is not None and "itemRequested_" in text)
-        #     item_received = wishlist_item.find("span", id=lambda text: text is not None and "itemPurchased_" in text)
-        #     item_priority = wishlist_item.find("span", id=lambda text: text is not None and "itemPriorityLabel_" in text)
-
-        #     item_add_string = wishlist_item.find("span", id=lambda text: text is not None and "itemAddedDate_" in text)
-        #     # item_add_date = wishlist_item.find("span", id=lambda text: text is not None and "itemAddedDate_" in text).text.strip()[11:]
-
-        #     if item_add_string:
-        #         item_add = item_add_string.text.strip()
-        #         item_add_date = item_add[11:]
-
-        #         data = {
-        #             'item_name': item_name,
-        #             'item_priority': item_priority.text.strip(),
-        #             'item_add_date': item_add_date,
-        #             'item_needed': item_needed.text.strip(),
-        #             'item_received': item_received.text.strip(),
-        #             'item_url': item_url,
-        #             'item_image_url': image_url
-        #         }
-
-        #         res.append(data)
-
 
     print(res)
     # return res
