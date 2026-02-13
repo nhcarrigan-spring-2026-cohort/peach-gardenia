@@ -42,16 +42,17 @@ def get_wishlist_items(
 
     for wishlist_item in wishlist_items:
 
-        item_name = None
-
+        ## Title and item url
         # Checking for main product link for each wishlist item
         item_block = wishlist_item.select_one("a.a-link-normal[id^='itemName_']")
+
+        item_name = None
+        item_url = None
         
-        # If no match then skip and continue
+        # If no match, skip and continue
         if not item_block:
             continue
-
-        # If match exists, then get title attr otherwise get the visible text
+        # If match exists, get title attr otherwise get the visible text
         if item_block.get("title"):
             item_name = item_block.get("title").strip()
         else:
@@ -59,14 +60,27 @@ def get_wishlist_items(
             if text:
                 item_name = text
 
+        # Checking for link and fixing if needed
+        href = item_block.get("href")
+        if href:
+            if href.startswith("http"):
+                item_url = href
+            else:
+                item_url = f"https://www.amazon.com{href}"
+
+        ## Image url
+        img = wishlist_item.find("img")
+        image_url = img.get("src") if img else None
+
         if item_name:
             data = {
                 "item_name": item_name,
+                "item_url": item_url,
+                "image_url": image_url,
             }
         
             res.append(data)
 
-        # href = item_block.findElement(By.tagName("href"))
 
         # if item and item.get("title"):
         #     item_name = item.get("title")
