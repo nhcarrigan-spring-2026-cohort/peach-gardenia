@@ -1,9 +1,21 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+}
+
 .form-wrapper {
-    width: 60%;
+    width: 100%;
+    max-width: 600px;
+    padding: 0 1rem;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 auto;
 }
 
 form {
@@ -11,98 +23,130 @@ form {
 }
 
 p {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     margin-bottom: 0.8rem;
 }
 
 h2 {
-    font-size: 2rem;
+    font-size: 1.6rem;
+    text-align: center;
 }
 
 legend {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
 }
 
 label {
     display: flex;
     flex-direction: column;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     margin-bottom: 0.8rem;
-}
-
-label:has(input[type="checkbox"]) {
-    flex-direction: row;
-    align-items: center;
-    gap: 0.5rem;
+    width: 100%;
+    word-wrap: break-word;
 }
 
 fieldset {
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0;
     border: none;
     margin: 1rem 0;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="tel"],
+input,
+select,
 textarea {
+    width: 100%;
     padding: 0.5rem;
-    font-size: 1.2rem;
-    border-radius: 10px;
-}
-
-/* Select styling */
-select {
-    padding: 0.5rem;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     border-radius: 10px;
     background-color: white;
 }
 
-/* Phone field layout */
+
+.checkbox-row {
+    display: flex;
+    justify-content: left;
+    gap: 0.5rem;
+    width: 100%;
+    margin-bottom: 0.8rem;
+}
+
+.checkbox-row input[type="checkbox"] {
+    width: auto;
+    display: inline;
+}
+
+.checkbox-row label {
+    flex: 1;
+    font-size: 1.1rem;
+    word-break: break-word;
+    text-align: left;
+    margin: auto 0;
+}
+
+
 .phone-field {
     display: flex;
+    flex-direction: column;
     gap: 0.5rem;
-    align-items: center;
+    width: 100%;
 }
 
 .phone-field select {
-    min-width: 90px;
+    width: 100%;
+    max-width: 100%;
 }
 
 .phone-field input[type="tel"] {
     flex: 1;
 }
 
+
 button {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     border-radius: 10px;
+    width: 100%;
+    padding: 0.7rem;
+    margin-top: 1rem;
 }
 
-@media screen and (max-width: 768px) {
-    .form-wrapper {
-        width: 90%;
-    }
-}
 
-@media screen and (max-width: 480px) {
+@media screen and (min-width: 480px) {
     .phone-field {
-        flex-direction: column;
-        align-items: stretch;
+        flex-direction: row;
+        align-items: center;
     }
 
     .phone-field select {
-        width: 100%;
+        width: auto;
+        min-width: 90px;
     }
 
-    input[type="text"],
-    input[type="email"],
-    textarea,
     button {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
+    }
+}
+
+
+@media screen and (min-width: 768px) {
+    .form-wrapper {
+        max-width: 60%;
     }
 
     h2 {
-        font-size: 1.6rem;
+        font-size: 2rem;
+    }
+
+    legend {
+        font-size: 1.5rem;
+    }
+
+    label {
+        font-size: 1.2rem;
+    }
+
+    button {
+        font-size: 1.5rem;
+        width: auto;
+        align-self: flex-start;
     }
 }

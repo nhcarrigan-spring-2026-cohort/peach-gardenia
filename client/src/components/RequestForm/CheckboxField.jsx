@@ -1,10 +1,8 @@
-
-
 export function CheckboxField({ label, name, value = "yes", required = false, className = "" }) {
     const id = name;
 
     return (
-        <label htmlFor={id} className={className}>
+        <div className={`checkbox-row ${className}`}>
             <input
                 id={id}
                 name={name}
@@ -12,7 +10,9 @@ export function CheckboxField({ label, name, value = "yes", required = false, cl
                 value={value}
                 required={required}
             />
-            {label}
-        </label>
+            <label htmlFor={id}>
+                {label}
+            </label>
+        </div>
     );
 }
