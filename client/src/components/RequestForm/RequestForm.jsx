@@ -34,7 +34,8 @@ export function RequestForm() {
             <h2 className="form-title">Caseworker's Request Form</h2>
 
             <p className="form-intro">
-                Thanks for your interest in using our platform. We believe <i>Every kind deserves a birthday gift</i>.
+                Thanks for your interest in using our platform. We believe <i>Every kid deserves a birthday gift</i>.
+                Therefore, we created this platform to achieve that.
                 Please fill in your details below and we shall get back to you as soon as your request has been accepted.
             </p>
 
