@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Caseworker_Address extends Model {
+  class Caseworker_Branch extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,20 +11,20 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Caseworker_Address.belongsTo(models.Caseworker, {
+      Caseworker_Branch.belongsTo(models.Caseworker, {
         foreignKey: 'caseworker_id'
       });
-      Caseworker_Address.belongsTo(models.Address, {
-        foreignKey: 'address_id'
+      Caseworker_Branch.belongsTo(models.Branch, {
+        foreignKey: 'branch_id'
       });
     }
   }
-  Caseworker_Address.init({
-    caseworker_id: DataTypes.INTEGER,
-    address_id: DataTypes.INTEGER
+  Caseworker_Branch.init({
+    branch_id: DataTypes.INTEGER,
+    caseworker_id: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'Caseworker_Address',
+    modelName: 'Caseworker_Branch',
   });
-  return Caseworker_Address;
+  return Caseworker_Branch;
 };

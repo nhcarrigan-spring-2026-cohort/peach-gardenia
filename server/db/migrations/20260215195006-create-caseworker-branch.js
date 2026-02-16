@@ -2,28 +2,28 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Caseworker_Organisations', {
+    await queryInterface.createTable('Caseworker_Branches', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      caseworker_id: {
+      branch_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Caseworkers',
+          model: 'Branches',
           key: 'id'
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
-      organisation_id: {
+      caseworker_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Organisations',
+          model: 'Caseworkers',
           key: 'id'
         },
         onUpdate: 'CASCADE',
@@ -40,6 +40,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Caseworker_Organisations');
+    await queryInterface.dropTable('Caseworker_Branches');
   }
 };

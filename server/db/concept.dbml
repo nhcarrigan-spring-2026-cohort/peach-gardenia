@@ -13,9 +13,15 @@ Table organisations {
     tel varchar(30)
 }
 
+Table branches {
+  id int [PK, increment]
+  organization int [ref: > organisations.id]
+  name varchar(200)
+  address int [ref: > addresses.id]
+}
+
 Table addresses {
   id int [PK, increment]
-  organisation_id int [ref: > organisations.id]
   row_1 text
   row_2 text
   city text
@@ -30,7 +36,6 @@ Table addresses {
 
 Table case_workers {
   id int [PK, increment]
-  organisation_id int
   first_name varchar(200)
   last_name varchar(200)
 }
@@ -71,26 +76,19 @@ Table wishlist_item_status {
   indexes {
     (wishlist_item_id, status) [unique]
   }
-  // checks {
-  //  `quantity >= 0` [name: 'gtoeq_to_zero']
-  // }
-}
-
-Table case_worker_addresses {
-  case_worker_id int [ref: > case_workers.id]
-  address_id int [ref: > addresses.id]
-
-  indexes {
-    (case_worker_id, address_id) [pk]
+  checks {
+   `quantity >= 0` [name: 'gtoeq_to_zero']
   }
 }
 
-Table case_worker_organisations {
+
+
+Table case_worker_branches {
   case_worker_id int [ref: > case_workers.id]
-  organisation_id int [ref: > organisations.id]
+  branch_id int [ref: > branches.id]
 
   indexes {
-    (case_worker_id, organisation_id) [pk]
+    (case_worker_id, branch_id) [pk]
   }
 }
 
@@ -105,7 +103,6 @@ Table case_worker_organisations {
 */
 
 
-Ref Case_worker_company: case_workers.organisation_id - organisations.id
 Ref Case_worker_wishlists: wishlists.case_worker_id > case_workers.id
 Ref Wishlist_url_referrer: wishlist_urls.wishlist_id <> wishlists.id
 Ref Wishlist_item_referrer: wishlist_items.wishlist_id <> wishlists.id

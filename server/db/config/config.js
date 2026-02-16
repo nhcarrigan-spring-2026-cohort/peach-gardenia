@@ -1,13 +1,15 @@
 const fs = require('fs');
+var path = require('path')
 const SqliteDialect = require("@sequelize/sqlite3");
 
 module.exports = {
   development: {
     username: 'root',
     password: null,
-    database: '../database.sqlite',
+    storage: 'dev.sqlite',
+    database: path.resolve('../', 'dev.sqlite'),
     "mode": SqliteDialect.OPEN_READWRITE | SqliteDialect.OPEN_CREATE | SqliteDialect.OPEN_FULLMUTEX,
-    host: '127.0.0.1',
+    // host: '127.0.0.1',
     port: 5432,
     dialect: 'sqlite',
     dialectOptions: {

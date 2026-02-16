@@ -9,16 +9,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      organisation_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'Organisations',
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
-      },
       row_1: {
         type: Sequelize.STRING
       },
@@ -61,5 +51,7 @@ module.exports = {
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Addresses');
+    // https://sequelize.org/docs/v6/other-topics/dialect-specific-things/#data-type-arrayenum---postgresql-only
+    await queryInterface.sequelize.query('DROP TYPE IF EXISTS "enum_Addresses_address_type";');
   }
 };
