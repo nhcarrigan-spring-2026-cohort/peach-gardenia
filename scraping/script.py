@@ -56,19 +56,6 @@ def get_wishlist_items(
 
     wishlist_items = soup.select("li.g-item-sortable")
 
-    # Get only items above the Purchased group -- doesn't seem to work :(
-    # container = soup.find(id="g-items")
-
-    # wishlist_items = []
-
-    # if container:
-    #     for child in container.find_all(recursive=False):
-    #         if child.get("id") == "completed-list-items-divider":
-    #             break
-
-    #         if child.name == "li" and "g-item-sortable" in child.get("class"):
-    #             wishlist_items.append(child)
-
     res = []
 
     for wishlist_item in wishlist_items:
