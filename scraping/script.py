@@ -3,7 +3,6 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
 import time
 
 from bs4 import BeautifulSoup
@@ -150,12 +149,4 @@ def get_wishlist_items(
         
             res.append(data)
 
-    print(res)
-    # return res
-
-live_url = "https://www.amazon.com/hz/wishlist/ls/2RKHN4PDYS5H4"
-get_wishlist_items(live_url)
-
-# with open('wishlist_items.html', 'w') as file:
-# with open('wishlist_items.html', 'w', encoding='utf-8') as file:
-#     print(wishlist_items, file=file)
+    return res
