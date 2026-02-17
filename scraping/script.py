@@ -4,7 +4,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-import requests
 from bs4 import BeautifulSoup
 
 def get_wishlist_items(
@@ -37,6 +36,19 @@ def get_wishlist_items(
     soup = BeautifulSoup(html, "html.parser")
 
     wishlist_items = soup.select("li.g-item-sortable")
+
+    # Get only items above the Purchased group -- doesn't seem to work :(
+    # container = soup.find(id="g-items")
+
+    # wishlist_items = []
+
+    # if container:
+    #     for child in container.find_all(recursive=False):
+    #         if child.get("id") == "completed-list-items-divider":
+    #             break
+
+    #         if child.name == "li" and "g-item-sortable" in child.get("class"):
+    #             wishlist_items.append(child)
 
     res = []
 
@@ -83,6 +95,13 @@ def get_wishlist_items(
         item_received = find_span_id("itemPurchased_")
         item_priority = find_span_id("itemPriorityLabel_")
 
+        needs_qty = int(item_needed.get_text(strip=True)) if item_needed else 0
+        has_qty = int(item_received.get_text(strip=True)) if item_received else 0
+
+        fulfilled_flag = (needs_qty > 0 and has_qty >= needs_qty)
+
+        priority_val = item_priority.get_text().replace(">", "").strip() if item_priority else None
+
         item_add_date = None
         item_add_span = find_span_id("itemAddedDate_")
         if item_add_span:
@@ -95,17 +114,18 @@ def get_wishlist_items(
             raw_text = item_last_purchase_span.get_text(strip=True)
             item_last_purchase_date = raw_text[15:]
 
-        # Add wishlist item object to list/array
+        ## Add wishlist item objects to list/array
         if item_name:
             data = {
                 "item_name": item_name,
                 "item_url": item_url,
                 "image_url": image_url,
-                "item_needed": item_needed.get_text(strip=True) if item_needed else None,
-                "item_received": item_received.get_text(strip=True) if item_received else None,
-                "item_priority": item_priority.get_text(strip=True) if item_priority else None,
+                "item_needed": needs_qty,
+                "item_received": has_qty,
+                "item_priority": priority_val,
                 "item_add_date": item_add_date,
                 "item_last_purchase_date": item_last_purchase_date,
+                "fulfilled": fulfilled_flag,
             }
         
             res.append(data)
@@ -113,5 +133,8 @@ def get_wishlist_items(
     print(res)
     # return res
 
-live_url = "https://www.amazon.com/hz/wishlist/ls/YW88P7BXG3A0?ref_=wl_fv_le"
+live_url = "https://www.amazon.com/hz/wishlist/ls/2RKHN4PDYS5H4"
 get_wishlist_items(live_url)
+
+# with open('wishlist_items.html', 'w') as file:
+#     print(wishlist_items, file=file)
