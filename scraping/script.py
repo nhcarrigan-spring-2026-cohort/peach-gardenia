@@ -108,18 +108,6 @@ def get_wishlist_items(
 
         priority_val = item_priority.get_text().replace(">", "").strip() if item_priority else None
 
-        item_add_date = None
-        item_add_span = find_span_id("itemAddedDate_")
-        if item_add_span:
-            raw_text = item_add_span.get_text(strip=True)
-            item_add_date = raw_text[11:]
-
-        item_last_purchase_date = None
-        item_last_purchase_span = find_span_id("itemPurchasedDate_")
-        if item_last_purchase_span:
-            raw_text = item_last_purchase_span.get_text(strip=True)
-            item_last_purchase_date = raw_text[15:]
-
         ## Add wishlist item objects to list/array
         if item_name:
             data = {
@@ -129,8 +117,6 @@ def get_wishlist_items(
                 "item_needed": needs_qty,
                 "item_received": has_qty,
                 "item_priority": priority_val,
-                "item_add_date": item_add_date,
-                "item_last_purchase_date": item_last_purchase_date,
                 "fulfilled": fulfilled_flag,
             }
         
