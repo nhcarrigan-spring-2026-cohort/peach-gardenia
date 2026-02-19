@@ -1,12 +1,32 @@
 # Database
 
+## Adding the tables and creating the db.sqlite file
+
+`pnpm dlx sequelize-cli db:migrate`
+
+**Note that this command will call the up method for all files listed in the migrations folder. Currently these just create tables, however they may change the state of the DB.**
+
+## Task folder
+
+The task folder is where you should write all the queries and db inserts. See task.js.example for template as well as more useful demos addOrganizations and addSingleOrganization.
+
+## Adding seed data
+
+Copy the file you wish to seed in the 'seeders file and run'
+
+`pnpm dlx sequelize-cli db:seed --seed <filename>`
+
+Alternatively run
+
+`pnpm dlx sequelize-cli db:seed:all`
+
 ## Use db instance
 
 You should be able to import the db instance with
 
 ```js
 // make sure the root is db
-const sequilize = require("[db]./db.js");
+const { sequilize } = require("./path/to/db.js");
 ```
 
 ## Testing connection

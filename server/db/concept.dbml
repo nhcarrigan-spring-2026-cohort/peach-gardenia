@@ -76,9 +76,9 @@ Table wishlist_item_status {
   indexes {
     (wishlist_item_id, status) [unique]
   }
-  checks {
-   `quantity >= 0` [name: 'gtoeq_to_zero']
-  }
+//  checks {
+//   `quantity >= 0` [name: 'gtoeq_to_zero']
+//  }
 }
 
 

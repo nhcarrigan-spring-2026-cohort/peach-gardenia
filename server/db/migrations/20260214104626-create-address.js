@@ -4,10 +4,9 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Addresses', {
       id: {
-        allowNull: false,
-        autoIncrement: true,
+        type: Sequelize.INTEGER,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        autoIncrement: true,
       },
       row_1: {
         type: Sequelize.STRING
@@ -50,8 +49,9 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
+    console.log(await queryInterface.sequelize.query("select * from organizations"));
+    // await queryInterface.sequelize.query("DROP TYPE IF EXISTS 'enum_Addresses_address_type';");
     await queryInterface.dropTable('Addresses');
     // https://sequelize.org/docs/v6/other-topics/dialect-specific-things/#data-type-arrayenum---postgresql-only
-    await queryInterface.sequelize.query('DROP TYPE IF EXISTS "enum_Addresses_address_type";');
   }
 };

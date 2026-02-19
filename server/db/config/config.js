@@ -4,9 +4,11 @@ const SqliteDialect = require("@sequelize/sqlite3");
 
 module.exports = {
   development: {
+    
     username: 'root',
     password: null,
     storage: 'dev.sqlite',
+    seederStorage: "",
     database: path.resolve('../', 'dev.sqlite'),
     "mode": SqliteDialect.OPEN_READWRITE | SqliteDialect.OPEN_CREATE | SqliteDialect.OPEN_FULLMUTEX,
     // host: '127.0.0.1',
