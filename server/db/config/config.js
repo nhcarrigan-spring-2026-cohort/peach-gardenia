@@ -1,18 +1,32 @@
 const fs = require('fs');
 var path = require('path')
+const Sequelize = require('sequelize')
 const SqliteDialect = require("@sequelize/sqlite3");
 
 module.exports = {
   development: {
-    
     username: 'root',
     password: null,
     storage: 'dev.sqlite',
     seederStorage: "",
-    database: path.resolve('../', 'dev.sqlite'),
+    database: path.resolve('./', 'dev.sqlite'),
+    logging: false,
     "mode": SqliteDialect.OPEN_READWRITE | SqliteDialect.OPEN_CREATE | SqliteDialect.OPEN_FULLMUTEX,
     // host: '127.0.0.1',
     port: 5432,
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
+    },
+    retry: {
+      match: [
+        /SQLITE_BUSY/,
+        Sequelize.ConnectionError,
+      ],
+      max: 3,
+    },
     dialect: 'sqlite',
     dialectOptions: {
       bigNumberStrings: true,
@@ -22,6 +36,7 @@ module.exports = {
     username: process.env.CI_DB_USERNAME,
     password: process.env.CI_DB_PASSWORD,
     database: process.env.CI_DB_NAME,
+    logging: (...msg) => console.log(msg),
     host: '127.0.0.1',
     port: 3306,
     dialect: 'sqlite',

@@ -1,5 +1,24 @@
 # Database
 
+## Configuration
+
+You can run DB scripts with different flags like so
+
+`key=value node script.js`
+
+The key we need to assign a value to is 'NODE_ENV'. The values we can set it to are 'development', 'test' and 'production'. So we can run:
+
+`NODE_ENV=development node path/to/database.js`
+
+Which will show the response in the terminal:
+
+```bash
+Executing (default): SELECT 1+1 AS result
+Connection has been established
+```
+
+Like wise, scripts that rely on the config file will need a similar initial flag.
+
 ## Adding the tables and creating the db.sqlite file
 
 `pnpm dlx sequelize-cli db:migrate`
@@ -9,6 +28,10 @@
 ## Task folder
 
 The task folder is where you should write all the queries and db inserts. See task.js.example for template as well as more useful demos addOrganizations and addSingleOrganization.
+
+Script example:
+
+`NODE_ENV=development node ./server/db/tasks/addOrganizations.js`
 
 ## Adding seed data
 
