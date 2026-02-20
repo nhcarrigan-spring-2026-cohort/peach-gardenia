@@ -1,6 +1,12 @@
 # Database
 
+## PNPM Installs
+
+The DB setup relies on sequelize, sequelize-cli and @sequelize/sqlite3, you simply need to run `pnpm i` and these will be installed.
+
 ## Configuration
+
+There will be a working config file saved as db.config.js.example. Rename this to config.js or edit config.js to match this if it already exists.
 
 You can run DB scripts with different flags like so
 
