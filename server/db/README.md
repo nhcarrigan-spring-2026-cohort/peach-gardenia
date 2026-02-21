@@ -4,6 +4,8 @@
 
 The DB setup relies on sequelize, sequelize-cli and @sequelize/sqlite3, you simply need to run `pnpm i` and these will be installed.
 
+**Some installs require pnpm to run scripts for installation properly. Pnpm requires permission to enable this. Run `pnpm approve-builds` to go through approval process.**
+
 ## Configuration
 
 There will be a working config file saved as db.config.js.example. Rename this to config.js or edit config.js to match this if it already exists.
@@ -41,7 +43,11 @@ Script example:
 
 ## Adding seed data
 
-Copy the file you wish to seed in the 'seeders file and run'
+Create the seed file (stored in ./db/seeders):
+
+`pnpm dlx sequelize-cli seed:generate --name Organization`
+
+Copy the file you wish to seed in the seeders directory and run
 
 `pnpm dlx sequelize-cli db:seed --seed <filename>`
 
@@ -51,7 +57,7 @@ Alternatively run
 
 ## Use db instance
 
-You should be able to import the db instance with
+You should be able to use the db instance with the import below. By default it will be run in development mode, but any script can be run with different flags which will effect the sequelize instance according to the configuration file.
 
 ```js
 // make sure the root is db
