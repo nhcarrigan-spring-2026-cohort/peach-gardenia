@@ -47,6 +47,9 @@ Create the seed file (stored in ./db/seeders):
 
 `pnpm dlx sequelize-cli seed:generate --name Organization`
 
+Edit the file with the inserts you wish to add.
+See server/db/seeders/20260219175306-organization.js for an example of how to add seed code.
+
 Copy the file you wish to seed in the seeders directory and run
 
 `pnpm dlx sequelize-cli db:seed --seed <filename>`
