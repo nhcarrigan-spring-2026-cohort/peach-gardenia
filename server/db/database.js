@@ -1,35 +1,35 @@
 const { Sequelize } = require('sequelize');
 
-let dbConfig;
+const buildFlag = process.env.NODE_ENV;
+let configFile;
 try {
-  dbConfig = require('./config/db.config');
+  configFile = require('./config/config.js');
 } catch (error) {
-  dbConfig = require('./config/db.config.js.example');
+  configFile = require('./config/db.config.js.example');
 }
 
-const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: 'database.sqlite',
-  pool: dbConfig.pool,
-  retry: {
-    match: [
-        /SQLITE_BUSY/,
-        Sequelize.ConnectionError,
-    ],
-    max: 3,
-  },
-  logging: false,
+let dbConfig;
+if (buildFlag === 'production') {
+  dbConfig = configFile.production;
+}
+else if (buildFlag === 'test') {
+  dbConfig = configFile.test;
+}
+else {
+  dbConfig = configFile.development;
+}
 
-});
+const sequelize = new Sequelize(dbConfig);
 
-async function connectToDatabase(){
-try {
-  await sequelize.authenticate();
-  console.log('Connection has been established');
-} catch (error) {
-  console.error('Unable to connect to the database:', error);
-  process.exit(1);
-}}
+async function connectToDatabase() {
+  try {
+    await sequelize.authenticate();
+    console.log('Connection has been established');
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+    process.exit(1);
+  }
+}
 
 module.exports = { sequelize, connectToDatabase };
 

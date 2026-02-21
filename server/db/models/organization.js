@@ -9,12 +9,20 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Organization.init({
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
     name: DataTypes.STRING(200),
     email: DataTypes.TEXT,
     tel: DataTypes.STRING(30)
   }, {
     sequelize,
     modelName: 'Organization',
+    // default
+    // createdAt: DataTypes.DATE,
+    // updatedAt: DataTypes.DATE,
   });
   return Organization;
 };
