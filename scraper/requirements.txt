@@ -1,0 +1,6 @@
+# Requirements w/o version specification
+
+selenium
+beautifulsoup4
+fastapi
+uvicorn[standard]

@@ -21,3 +21,7 @@ Thumbs.db
 
 # DB Config
 server/db/config/db.config.js
+
+# Python artifacts
+__pycache__/
+*.pyc
