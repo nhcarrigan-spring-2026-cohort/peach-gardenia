@@ -2,6 +2,7 @@ const { formValidation } = require("../helpers/formValidation")
 const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer')
+const { AccountRequest } = require("../db/models/account_requests");
 
 router.use(express.urlencoded({ extended: true }))
 router.use(express.json())
@@ -24,15 +25,20 @@ router
   })
 
   //Caseworker contact form - post route
-  .post('/requestform', (req, res) => {
-    const validate = formValidation(req.body);
+  .post ('/requestform', async (req, res) => {
+    try {
+      const validate = formValidation(req.body);
     if (validate)
     {
+      await AccountRequest.create(req.body);
       res.redirect("http://localhost:5173/caseworker/requestform?status=success")
     } 
     else {
       res.redirect("http://localhost:5173/caseworker/requestform?status=error")
     } 
+  } catch (e) {
+    console.log("Error adding account request to the AccountRequests Table in the database: " + e.message)
+  }
   })
 
   //All wishlists that are related to caseworker id
