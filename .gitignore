@@ -20,3 +20,6 @@ Thumbs.db
 
 # DB Config
 server/db/config/db.config.js
+
+# ES lint Config
+.eslintrc.local.js
