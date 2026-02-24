@@ -18,5 +18,10 @@ coverage/
 .DS_Store
 Thumbs.db
 
-# DB Config
+# DB
+# Instance
+**/*.sqlite
+
+# Config
 server/db/config/db.config.js
+

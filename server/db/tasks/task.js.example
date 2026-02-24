@@ -1,0 +1,17 @@
+const { sequelize } = require('../database.js');
+const { DataTypes } = require('sequelize');
+const DemoModel = require('../models/<your model>.js')(sequelize, DataTypes);
+
+async function dbTask(params) {
+  try {
+    /* 
+     The DemoModel below extends the Model interface. Interface details can be found at https://sequelize.org/api/v6/class/src/model.js~model
+    */
+
+    // await DemoModel.create() or any other method/member
+  }
+  catch (err) {
+    console.error(err.message);
+
+  }
+}
