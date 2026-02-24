@@ -2,5 +2,3 @@
 
 selenium
 beautifulsoup4
-fastapi
-uvicorn[standard]
